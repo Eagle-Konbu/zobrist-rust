@@ -20,4 +20,17 @@ impl<T> Zobrist<T> {
             .collect::<Vec<u64>>();
         Zobrist { items, hashes }
     }
+
+    fn set_hash(&self, indexes: Vec<usize>) -> u64 {
+        let mut res = 0;
+        for i in indexes {
+            res ^= self.hashes[i];
+        }
+
+        res
+    }
+
+    fn append_item_to_set_hash(&self, set: u64, item: usize) -> u64 {
+        set ^ self.hashes[item]
+    }
 }
